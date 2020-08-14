@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+console.log(firebase);
+const signOutBtn = document.getElementById('signOutBtn');
+const signInEmail = document.getElementById('signInEmail');
+const whenSignedIn = document.getElementById('whenSignedIn');
+const whenSignedOut = document.getElementById('whenSignedOut');
+const userDetails = document.getElementById('userDetails');
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+signInEmail.onclick = () => window.open('login.html');
 
-export default App;
+const auth = firebase.auth();
+
+//Sign Out
+signOutBtn.onclick = () => auth.signOut();
+
+
+auth.onAuthStateChanged(user =>{
+    if(user) {
+        //signed in
+        whenSignedIn.style.display = 'flex';
+        whenSignedOut.style.display = 'none';
+        //userDetails.innerHTML = `<h3>Hello ${user.displayName}!</h3> <p>User ID: ${user.uid}</p>`;
+        userDetails.innerHTML = `<img class="pfp" src="${user.photoURL}"/>`;
+    } else {
+        whenSignedIn.style.display = 'none';
+        whenSignedOut.style.display = 'flex';
+        userDetails.innerHTML = '';
+    }
+});
