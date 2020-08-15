@@ -322,3 +322,14 @@ td{
     align-items: center;
     flex-wrap: wrap;
 }
+.endscr{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around !important;
+}
+.endscore{
+    font-size: 40px;
+    color: yellow;
+    padding: 20px;
+}

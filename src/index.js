@@ -7,6 +7,7 @@ import Game, {Play} from "./Game";
 import Help from "./help";
 import Settings from "./settings";
 import Nsi from "./nsi";
+import Endscr from "./endscr"
 import GuestPfp from "./assets/img_avatar.png"
 var firebase = require("firebase/app");
 
@@ -28,6 +29,7 @@ class App extends React.Component {
             <Route path="/help" component={Help}/>
             <Route path="/settings" component={Settings}/>
             <Route path="/signin" component={Nsi}/>
+            <Route path="/end" component={Endscr}/>
           </Switch>
         </div>
       </Router>
@@ -209,6 +211,17 @@ function randomizeOptions(options){
         }
         else{
           alert('Let the authentication process complete');
+        }
+      }
+
+      export function checkAuth(){
+        var user = auth.currentUser;
+        if(user){
+            return true;
+          }
+        else{
+          //alert('Let the authentication process complete');
+          return false;
         }
       }
 

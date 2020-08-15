@@ -21,6 +21,7 @@ export default function Help() {
             <hr/>
             <p style={{'textAlign':'center', 'fontWeight':'700'}}>Lifelines:</p>
             <table>
+                <tbody>
                 <tr>
                     <td style={{'width':'30%', 'paddingLeft':'8%'}}><Lifeline option={<BarChartIcon className="iconSpacer2"/>}/></td>
                     <td>This is 'Option Charts'.<br/>On using it charts appear with different percentages for the given options. Using this one can get the right answer.</td>
@@ -37,6 +38,7 @@ export default function Help() {
                     <td style={{'width':'30%', 'paddingLeft':'8%'}}><Lifeline option={<AutorenewIcon className="iconSpacer2"/>}/></td>
                     <td>This is 'Flip the Question'.<br/>On using it the question changes and a new question appears.</td>
                 </tr>
+                </tbody>
             </table>
         </div>
     );

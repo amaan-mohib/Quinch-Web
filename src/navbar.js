@@ -47,16 +47,17 @@ export default function Navbar() {
     );
     return (
         <nav className="quicksand">
-            <div className="time">
-                <AlarmIcon className="whiter iconSpacer" />60
+            <div id="timerDiv" className="time" style={{'display':'none'}}>
+                <AlarmIcon className="whiter iconSpacer" /><span id="timer">10</span>
             </div>
             <div className="logo">
             <Link to="/">
-                <img src={Quinch} alt="Quinch" title="Quinch" className="quinch" /></Link>
+                <img src={Quinch} alt="Quinch" title="Quinch" className="quinch" style={{'marginLeft':'10px'}}/></Link>
             </div>
             <div className="acc">
-                <div>
-                    100<StarsIcon className="whiter iconSpacer" />
+                <div id="scoreDiv"  style={{'display':'none'}}>
+                    <span id="score">0</span>
+                    <StarsIcon className="whiter iconSpacer" />
                 </div>
                 
                 <div id="whenSignedOut">
@@ -106,10 +107,10 @@ function NavItem(props) {
     }
     return(
         <div ref={node}>
-            <button className="iconBut" onClick={() => setOpen(!open)}>
+            <div className="iconBut" onClick={() => setOpen(!open)}>
                 {props.user}
                 {props.icon}
-            </button>
+            </div>
             {open && props.children}
         </div>
     );
