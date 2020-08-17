@@ -50,10 +50,10 @@ export default function Navbar() {
       <div id="timerDiv" className="time" style={{ display: "none" }}>
         <AlarmIcon className="whiter iconSpacer" />
         <span id="timer" style={{ minWidth: "29px" }}>
-          000
+          10
         </span>
       </div>
-      <div className="logo">
+      <div id="logo" className="logo">
         <Link to="/">
           <img
             src={Quinch}
@@ -62,6 +62,9 @@ export default function Navbar() {
             className="quinch"
             style={{ marginLeft: "10px" }}
           />
+          <span id="logoText" className="logoText">
+            Quinch
+          </span>
         </Link>
       </div>
       <div className="acc">

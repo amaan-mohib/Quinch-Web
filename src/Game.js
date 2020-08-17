@@ -15,7 +15,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import SearchIcon from "@material-ui/icons/Search";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
-import { getQues, checkAuth } from "./index";
+import { getQues, checkAuth, getHighScore } from "./index";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
@@ -49,6 +49,10 @@ export default function Game() {
   const [signedOut, setSignedOut] = useState(false);
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [isDisabled2, setIsDisabled2] = useState(false);
+  const [isDisabled3, setIsDisabled3] = useState(false);
+  const [isDisabled4, setIsDisabled4] = useState(false);
   let history = useHistory();
 
   const handleClickOpen = () => {
@@ -83,20 +87,43 @@ export default function Game() {
   useEffect(() => {
     const timerDiv = document.getElementById("timerDiv");
     const scoreDiv = document.getElementById("scoreDiv");
+    const l2 = document.getElementById("l2");
+    const l3 = document.getElementById("l3");
+    const l4 = document.getElementById("l4");
+    const firstHalf = document.getElementById("firstHalf");
+    const secondHalf = document.getElementById("secondHalf");
+    const logoText = document.getElementById("logo");
+    l2.style.display = "none";
+    l3.style.display = "none";
+    l4.style.display = "none";
+    firstHalf.style.width = "100%";
+    secondHalf.style.width = "0%";
     timerDiv.style.display = "flex";
     scoreDiv.style.display = "flex";
+    logoText.style.display = "none";
     score = 0;
     setScore(score);
     getQues(`ques${i}`);
-    //timer(10, history);                                        //Remember BSDK
-
+    setIsDisabled(false);
+    setIsDisabled2(false);
+    setIsDisabled3(false);
+    setIsDisabled4(false);
+    timer(10, history);
+    getHighScore();
     console.log(i);
     console.log(score);
     return () => {
       i = 1;
       clearInterval(countDown);
+
       timerDiv.style.display = "none";
       scoreDiv.style.display = "none";
+      l2.style.display = "none";
+      l3.style.display = "none";
+      l4.style.display = "none";
+      logoText.style.display = "inline-block";
+      firstHalf.style.width = "100%";
+      secondHalf.style.width = "0%";
       console.log(score);
     };
   }, []);
@@ -105,7 +132,9 @@ export default function Game() {
     <div id="game">
       <div id="quesBox" className="quesBox">
         <div className="progress">
-          <span id="progress" style={{ width: "100%" }}></span>
+          <span
+            id="progress"
+            style={{ width: "100%", transitionDuration: "0.4s" }}></span>
           <div>
             <ThemeProvider theme={theme}>
               <Fab color="primary" size="small" onClick={handleClickOpen}>
@@ -241,34 +270,50 @@ export default function Game() {
           </div>
         </div>
         <div className="lifeline">
-          <Lifeline
-            id="l1"
-            onClick={() => {
-              handleBarOpen();
-            }}
-            option={<BarChartIcon className="iconSpacer2" />}
-          />
-          <Lifeline
-            id="l2"
-            option="50 : 50"
-            onClick={() => {
-              fiftyfifty();
-            }}
-          />
-          <Lifeline
-            id="l3"
-            onClick={() => {
-              handleSearchOpen();
-            }}
-            option={<SearchIcon className="iconSpacer2" />}
-          />
-          <Lifeline
-            id="l4"
-            onClick={() => {
-              flipQues(history);
-            }}
-            option={<AutorenewIcon className="iconSpacer2" />}
-          />
+          <div id="firstHalf">
+            <Lifeline
+              id="l1"
+              onClick={() => {
+                setIsDisabled(true);
+                handleBarOpen();
+                console.log(isDisabled);
+              }}
+              disabled={isDisabled}
+              option={<BarChartIcon className="iconSpacer2" />}
+            />
+            <Lifeline
+              id="l2"
+              option="50 : 50"
+              onClick={() => {
+                setIsDisabled2(true);
+                fiftyfifty();
+                console.log(isDisabled2);
+              }}
+              disabled={isDisabled2}
+            />
+          </div>
+          <div id="secondHalf">
+            <Lifeline
+              id="l3"
+              onClick={() => {
+                setIsDisabled3(true);
+                handleSearchOpen();
+                console.log(isDisabled3);
+              }}
+              disabled={isDisabled3}
+              option={<SearchIcon className="iconSpacer2" />}
+            />
+            <Lifeline
+              id="l4"
+              onClick={() => {
+                setIsDisabled4(true);
+                flipQues(history);
+                console.log(isDisabled4);
+              }}
+              disabled={isDisabled4}
+              option={<AutorenewIcon className="iconSpacer2" />}
+            />
+          </div>
         </div>
         <div id="ques" className="ques">
           Loading...
@@ -283,6 +328,7 @@ export default function Game() {
             <Option id="o4" option="Loading" />
           </div>
         </div>
+        <div></div>
         <div id="hiddenDiv" style={{ display: "none" }}></div>
       </div>
     </div>
@@ -380,6 +426,13 @@ function timer(time, history) {
 function answerChecker(option, history) {
   const hiddenDiv = document.getElementById("hiddenDiv");
   const checked = option.innerHTML === hiddenDiv.innerHTML;
+  const l2 = document.getElementById("l2");
+  const l3 = document.getElementById("l3");
+  const l4 = document.getElementById("l4");
+  const firstHalf = document.getElementById("firstHalf");
+  const secondHalf = document.getElementById("secondHalf");
+  var x = window.matchMedia("(max-width: 720px)");
+
   if (checked) {
     //seti(i=i+1);
     score += 10;
@@ -406,15 +459,33 @@ function answerChecker(option, history) {
       }
       if (i >= 4 && i <= 5) {
         timer(20, history);
+        l2.style.display = "inline-block";
       }
       if (i >= 6 && i <= 7) {
         timer(30, history);
+        if (x.matches) {
+          firstHalf.style.width = "100%";
+          secondHalf.style.width = "100%";
+        } else {
+          firstHalf.style.width = "62.5%";
+          secondHalf.style.width = "37.5%";
+        }
+
+        l3.style.display = "flex";
       }
       if (i >= 8 && i <= 9) {
         timer(40, history);
       }
       if (i >= 10 && i <= 11) {
         timer(60, history);
+        if (x.matches) {
+          firstHalf.style.width = "100%";
+          secondHalf.style.width = "100%";
+        } else {
+          firstHalf.style.width = "50%";
+          secondHalf.style.width = "50%";
+        }
+        l4.style.display = "flex";
       }
     }, 100);
   } else {
@@ -459,6 +530,7 @@ export function Lifeline(props) {
           props.onClick();
           handleClick();
         }}
+        disabled={props.disabled}
         className="lifelineBtn">
         {props.option}
       </button>

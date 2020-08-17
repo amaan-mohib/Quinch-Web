@@ -123,6 +123,7 @@ nav * {
   padding: 1rem;
   overflow: hidden;
   box-shadow: 0 0 2px 1px rgba(17, 17, 17, 0.5);
+  transition-duration: 0.4s;
 }
 .icon:hover {
   border-radius: 5px;
@@ -239,6 +240,9 @@ hr {
   display: flex;
   justify-content: space-evenly;
 }
+.lifeline > div > button {
+  margin: 20px 0;
+}
 .lifelineBtn {
   font-family: "Jost", sans-serif;
   border-radius: 50%;
@@ -256,6 +260,14 @@ hr {
 }
 .lifelineBtn:hover {
   background-color: #494747;
+}
+.lifelineBtn:disabled {
+  color: #494747;
+  border: 3px solid #494747;
+  cursor: not-allowed;
+}
+.lifelineBtn:disabled:hover {
+  background-color: transparent;
 }
 .ques {
   font-family: "Quicksand", sans-serif;
@@ -354,10 +366,26 @@ td {
     width: 100%;
   }
   .options > div > button {
-    margin: 20px 0px;
+    margin: 10px 0px;
     width: 100%;
     justify-content: center;
     font-size: 18px;
+  }
+  .lifeline {
+    flex-direction: column;
+  }
+  .lifeline > div {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+  }
+  .congo {
+    font-size: 10vw;
+  }
+  #message {
+    box-shadow: none !important;
+    background: none !important;
+    border-radius: 0% !important;
   }
 }
 
@@ -377,6 +405,15 @@ td {
     justify-content: center;
     font-size: 18px;
   }
+  .lifeline > div {
+    display: flex;
+    width: 50%;
+    justify-content: space-around;
+    transition-duration: 0.4s;
+  }
+  .congo {
+    font-size: 50px;
+  }
 }
 /* Desktops and laptops ----------- */
 @media only screen and (min-width: 1224px) {
@@ -393,6 +430,27 @@ td {
     justify-content: center;
     font-size: 18px;
   }
+  .lifeline > div {
+    display: flex;
+    width: 50%;
+    justify-content: space-around;
+    transition-duration: 0.4s;
+  }
+  .congo {
+    font-size: 50px;
+  }
+}
+.logoText {
+  font-family: "Righteous", cursive;
+  background-color: white;
+  background-image: linear-gradient(to right, #f9f9f9, #ceb8b8);
+  background-size: 100%;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  font-size: 25px;
+  margin-left: 12px;
 }
 
 /* Large screens ----------- */
@@ -410,4 +468,64 @@ td {
     justify-content: center;
     font-size: 18px;
   }
+  .lifeline > div {
+    display: flex;
+    width: 50%;
+    justify-content: space-around;
+    transition-duration: 0.4s;
+  }
+  .congo {
+    font-size: 50px;
+  }
+}
+#message {
+  font-family: sans-serif;
+  background: #302f2f;
+  max-width: 360px;
+  margin: 100px auto 16px;
+  padding: 32px 24px 16px;
+  border-radius: 3px;
+}
+#message h3 {
+  color: #888;
+  font-weight: normal;
+  font-size: 16px;
+  margin: 16px 0 12px;
+}
+#message h2 {
+  color: #ffa100;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 0 0 8px;
+}
+#message h1 {
+  font-size: 22px;
+  font-weight: 300;
+  color: whitesmoke;
+  margin: 0 0 16px;
+}
+#message p {
+  color: wheat;
+  line-height: 140%;
+  margin: 16px 0 24px;
+  font-size: 14px;
+}
+#message a {
+  display: block;
+  text-align: center;
+  background: #039be5;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: white;
+  padding: 16px;
+  border-radius: 4px;
+}
+#message,
+#message a {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+#load {
+  color: rgba(0, 0, 0, 0.4);
+  text-align: center;
+  font-size: 13px;
 }
